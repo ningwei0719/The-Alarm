@@ -1,8 +1,6 @@
 package edu.illinois.cs.cs125.spring2019.lab12;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.media.MediaPlayer;
@@ -24,7 +22,7 @@ public class AlarmAlert extends Activity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mediaPlayer = MediaPlayer.create(this,R.raw.clockmusic2);
+        mediaPlayer = MediaPlayer.create(this, R.raw.clockmusic2);
         mediaPlayer.start();
         new AlertDialog.Builder(AlarmAlert.this)
                 .setIcon(R.drawable.clock)

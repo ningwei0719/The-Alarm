@@ -35,11 +35,15 @@ public class MainActivity extends AppCompatActivity {
     /** */
     TextView show3;
     /** */
+    TextView show4;
+    /** */
     Button setTime1;
     /** */
     Button setTime2;
     /** */
     Button setTime3;
+    /** */
+    Button setTime4;
     /** */
     Button delete1;
     /** */
@@ -47,11 +51,15 @@ public class MainActivity extends AppCompatActivity {
     /** */
     Button delete3;
     /** */
+    Button delete4;
+    /** */
     String show1String = null;
     /** */
     String show2String = null;
     /** */
     String show3String = null;
+    /** */
+    String show4String = null;
     /** */
     String defalutString = "No Alarm";
     /** */
@@ -74,17 +82,21 @@ public class MainActivity extends AppCompatActivity {
         show1String = settings.getString("TIME1", defalutString);
         show2String = settings.getString("TIME2", defalutString);
         show3String = settings.getString("TIME3", defalutString);
+        show4String = settings.getString("TIME4", defalutString);
 
         InitSetTime1();
         InitSetTime2();
         InitSetTime3();
+        InitSetTime4();
         InitDelete1();
         InitDelete2();
         InitDelete3();
+        InitDelete4();
 
         show1.setText(show1String);
         show2.setText(show2String);
         show3.setText(show3String);
+        show3.setText(show4String);
     }
 
     /**
@@ -120,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                                 String tmpS = format(hourOfDay) + "：" + format(minute);
                                 show1.setText(tmpS);
 
-                                //SharedPreferences保存数据，并提交
+                                //SAVE DATA
                                 SharedPreferences time1Share = getPreferences(0);
                                 SharedPreferences.Editor editor = time1Share.edit();
                                 editor.putString("TIME1", tmpS);
@@ -196,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                                 String tmpS = format(hourOfDay) + "：" + format(minute);
                                 show2.setText(tmpS);
 
-                                //SharedPreferences保存数据，并提交
+                                //SAVE DATA
                                 SharedPreferences time1Share = getPreferences(0);
                                 SharedPreferences.Editor editor = time1Share.edit();
                                 editor.putString("TIME1", tmpS);
@@ -314,6 +326,83 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * settime4.
+     */
+    private void InitSetTime4() {
+        show4 = (TextView) findViewById(R.id.show4);
+        setTime4 = (Button) findViewById(R.id.settime4);
+        setTime4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                c.setTimeInMillis(System.currentTimeMillis());
+                int mHour = c.get(Calendar.HOUR_OF_DAY);
+                int mMinute = c.get(Calendar.MINUTE);
+
+
+                new TimePickerDialog(MainActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            public void onTimeSet(final TimePicker view, final int hourOfDay,
+                                                  final int minute) {
+                                c.setTimeInMillis(System.currentTimeMillis());
+                                c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                c.set(Calendar.MINUTE, minute);
+                                c.set(Calendar.SECOND, 0);
+                                c.set(Calendar.MILLISECOND, 0);
+
+                                Intent intent = new Intent(MainActivity.this, CallAlarm.class);
+                                PendingIntent sender = PendingIntent.getBroadcast(
+                                        MainActivity.this, 0, intent, 0);
+                                AlarmManager am;
+                                am = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                    am.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), sender);
+                                }
+
+                                String tmpS = format(hourOfDay) + "：" +  format(minute);
+                                show4.setText(tmpS);
+
+                                //SAVE DATA
+                                SharedPreferences time1Share = getPreferences(0);
+                                SharedPreferences.Editor editor = time1Share.edit();
+                                editor.putString("TIME1", tmpS);
+                                editor.commit();
+
+                                Toast.makeText(MainActivity.this, "Set the Alarm at" + tmpS,
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        }, mHour, mMinute, true).show();
+            }
+        });
+    }
+
+    /**
+     * delete3.
+     */
+    private void InitDelete4() {
+        delete4 = (Button) findViewById(R.id.delete4);
+        delete4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Intent intent = new Intent(MainActivity.this, CallAlarm.class);
+                PendingIntent sender = PendingIntent.getBroadcast(
+                        MainActivity.this, 0, intent, 0);
+                AlarmManager am;
+                am = (AlarmManager) getSystemService(ALARM_SERVICE);
+                am.cancel(sender);
+                Toast.makeText(MainActivity.this, "Alarm Deleted",
+                        Toast.LENGTH_SHORT).show();
+                show4.setText("No Alarm");
+
+                SharedPreferences time1Share = getPreferences(0);
+                SharedPreferences.Editor editor = time1Share.edit();
+                editor.putString("TIME1", "No Alarm");
+                editor.commit();
+            }
+        });
+    }
+
+    /**
      * keyup.
      * @param keyCode
      * @param event
@@ -354,11 +443,11 @@ public class MainActivity extends AppCompatActivity {
      * @return x.
      */
     private String format(final int x) {
-        String s = "" + x;
-        if (s.length() == 1) {
-            s = "0" + s;
+        String time = "" + x;
+        if (time.length() == 1) {
+            time = "0" + time;
         }
-        return s;
+        return time;
     }
 
 }
