@@ -16,11 +16,11 @@ public class CallAlarm extends BroadcastReceiver {
      */
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        Intent intent1 = new Intent(context, AlarmAlert.class);
+        Intent turnUp = new Intent(context, AlarmAlert.class);
         Bundle bundle = new Bundle();
         bundle.putString("STR_CALLER", "");
-        intent1.putExtras(bundle);
-        intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent1);
+        turnUp.putExtras(bundle);
+        turnUp.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(turnUp);
     }
 }

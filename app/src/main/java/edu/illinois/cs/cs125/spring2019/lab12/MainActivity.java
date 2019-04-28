@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     /** */
     AlertDialog builder=null;
     /** */
-    Calendar c = Calendar.getInstance();
+    Calendar date = Calendar.getInstance();
     /** */
     private MediaPlayer mediaPlayer;
 
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         show1.setText(show1String);
         show2.setText(show2String);
         show3.setText(show3String);
-        show3.setText(show4String);
+        show4.setText(show4String);
     }
 
     /**
@@ -107,18 +107,18 @@ public class MainActivity extends AppCompatActivity {
         setTime1 = (Button) findViewById(R.id.settime1);
         setTime1.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View v) {
-                c.setTimeInMillis(System.currentTimeMillis());
-                int mHour = c.get(Calendar.HOUR_OF_DAY);
-                int mMinute = c.get(Calendar.MINUTE);
+                date.setTimeInMillis(System.currentTimeMillis());
+                int mHour = date.get(Calendar.HOUR_OF_DAY);
+                int mMinute = date.get(Calendar.MINUTE);
                 new TimePickerDialog(MainActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             public void onTimeSet(final TimePicker view, final int hourOfDay,
                                                   final int minute) {
-                                c.setTimeInMillis(System.currentTimeMillis());
-                                c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                                c.set(Calendar.MINUTE, minute);
-                                c.set(Calendar.SECOND, 0);
-                                c.set(Calendar.MILLISECOND, 0);
+                                date.setTimeInMillis(System.currentTimeMillis());
+                                date.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                date.set(Calendar.MINUTE, minute);
+                                date.set(Calendar.SECOND, 0);
+                                date.set(Calendar.MILLISECOND, 0);
 
                                 Intent intent = new Intent(MainActivity.this, CallAlarm.class);
                                 PendingIntent sender = PendingIntent.getBroadcast(
@@ -126,19 +126,19 @@ public class MainActivity extends AppCompatActivity {
                                 AlarmManager am;
                                 am = (AlarmManager) getSystemService(ALARM_SERVICE);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                    am.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), sender);
+                                    am.setExact(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), sender);
                                 }
 
-                                String tmpS = format(hourOfDay) + "：" + format(minute);
-                                show1.setText(tmpS);
+                                String tmp = format(hourOfDay) + "：" + format(minute);
+                                show1.setText(tmp);
 
                                 //SAVE DATA
                                 SharedPreferences time1Share = getPreferences(0);
                                 SharedPreferences.Editor editor = time1Share.edit();
-                                editor.putString("TIME1", tmpS);
+                                editor.putString("TIME1", tmp);
                                 editor.commit();
 
-                                Toast.makeText(MainActivity.this, "Set the Alarm at" + tmpS,
+                                Toast.makeText(MainActivity.this, "Set the Alarm at" + tmp,
                                         Toast.LENGTH_SHORT).show();
                             }
                         }, mHour, mMinute, true).show();
@@ -181,20 +181,20 @@ public class MainActivity extends AppCompatActivity {
         setTime2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                c.setTimeInMillis(System.currentTimeMillis());
-                int mHour = c.get(Calendar.HOUR_OF_DAY);
-                int mMinute = c.get(Calendar.MINUTE);
+                date.setTimeInMillis(System.currentTimeMillis());
+                int mHour = date.get(Calendar.HOUR_OF_DAY);
+                int mMinute = date.get(Calendar.MINUTE);
 
 
                 new TimePickerDialog(MainActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             public void onTimeSet(final TimePicker view, final int hourOfDay,
                                                   final int minute) {
-                                c.setTimeInMillis(System.currentTimeMillis());
-                                c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                                c.set(Calendar.MINUTE, minute);
-                                c.set(Calendar.SECOND, 0);
-                                c.set(Calendar.MILLISECOND, 0);
+                                date.setTimeInMillis(System.currentTimeMillis());
+                                date.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                date.set(Calendar.MINUTE, minute);
+                                date.set(Calendar.SECOND, 0);
+                                date.set(Calendar.MILLISECOND, 0);
 
                                 Intent intent = new Intent(MainActivity.this, CallAlarm.class);
                                 PendingIntent sender = PendingIntent.getBroadcast(
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                                 AlarmManager am;
                                 am = (AlarmManager) getSystemService(ALARM_SERVICE);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                    am.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), sender);
+                                    am.setExact(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), sender);
                                 }
 
                                 String tmpS = format(hourOfDay) + "：" + format(minute);
@@ -257,20 +257,20 @@ public class MainActivity extends AppCompatActivity {
         setTime3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                c.setTimeInMillis(System.currentTimeMillis());
-                int mHour = c.get(Calendar.HOUR_OF_DAY);
-                int mMinute = c.get(Calendar.MINUTE);
+                date.setTimeInMillis(System.currentTimeMillis());
+                int mHour = date.get(Calendar.HOUR_OF_DAY);
+                int mMinute = date.get(Calendar.MINUTE);
 
 
                 new TimePickerDialog(MainActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             public void onTimeSet(final TimePicker view, final int hourOfDay,
                                                   final int minute) {
-                                c.setTimeInMillis(System.currentTimeMillis());
-                                c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                                c.set(Calendar.MINUTE, minute);
-                                c.set(Calendar.SECOND, 0);
-                                c.set(Calendar.MILLISECOND, 0);
+                                date.setTimeInMillis(System.currentTimeMillis());
+                                date.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                date.set(Calendar.MINUTE, minute);
+                                date.set(Calendar.SECOND, 0);
+                                date.set(Calendar.MILLISECOND, 0);
 
                                 Intent intent = new Intent(MainActivity.this, CallAlarm.class);
                                 PendingIntent sender = PendingIntent.getBroadcast(
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
                                 AlarmManager am;
                                 am = (AlarmManager) getSystemService(ALARM_SERVICE);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                    am.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), sender);
+                                    am.setExact(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), sender);
                                 }
 
                                 String tmpS = format(hourOfDay) + "：" +  format(minute);
@@ -334,20 +334,20 @@ public class MainActivity extends AppCompatActivity {
         setTime4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                c.setTimeInMillis(System.currentTimeMillis());
-                int mHour = c.get(Calendar.HOUR_OF_DAY);
-                int mMinute = c.get(Calendar.MINUTE);
+                date.setTimeInMillis(System.currentTimeMillis());
+                int mHour = date.get(Calendar.HOUR_OF_DAY);
+                int mMinute = date.get(Calendar.MINUTE);
 
 
                 new TimePickerDialog(MainActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             public void onTimeSet(final TimePicker view, final int hourOfDay,
                                                   final int minute) {
-                                c.setTimeInMillis(System.currentTimeMillis());
-                                c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                                c.set(Calendar.MINUTE, minute);
-                                c.set(Calendar.SECOND, 0);
-                                c.set(Calendar.MILLISECOND, 0);
+                                date.setTimeInMillis(System.currentTimeMillis());
+                                date.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                date.set(Calendar.MINUTE, minute);
+                                date.set(Calendar.SECOND, 0);
+                                date.set(Calendar.MILLISECOND, 0);
 
                                 Intent intent = new Intent(MainActivity.this, CallAlarm.class);
                                 PendingIntent sender = PendingIntent.getBroadcast(
@@ -355,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
                                 AlarmManager am;
                                 am = (AlarmManager) getSystemService(ALARM_SERVICE);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                    am.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), sender);
+                                    am.setExact(AlarmManager.RTC_WAKEUP, date.getTimeInMillis(), sender);
                                 }
 
                                 String tmpS = format(hourOfDay) + "：" +  format(minute);
@@ -404,14 +404,14 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * keyup.
-     * @param keyCode
+     * @param key
      * @param event
      * @return
      */
     @Override
-    public boolean onKeyUp(final int keyCode, final KeyEvent event) {
+    public boolean onKeyUp(final int key, final KeyEvent event) {
         mediaPlayer.stop();
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        if (key == KeyEvent.KEYCODE_BACK) {
             mediaPlayer.stop();
             builder = new AlertDialog.Builder(MainActivity.this)
 
@@ -451,3 +451,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
